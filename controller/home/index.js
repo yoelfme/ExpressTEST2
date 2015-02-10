@@ -1,12 +1,14 @@
 var express = require('express');
 var app = express();
+var router = express.Router();
 
-// Set roots of views
-app.set('views', __dirname + '/views');
-app.set('views engine','jade');
 
-app.get('/',function (req, res) {
-	res.render('home', {
-		title: 'Bienvenido'
+/* GET home page */
+router.get('/',function (req, res, next) {
+	console.log(__dirname);
+	res.render('/home',{
+		title: 'Home'
 	})
-})
+});
+
+module.exports = router;

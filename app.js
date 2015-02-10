@@ -4,14 +4,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+var http = require('http');
+var port = (process.env.PORT || 3000);
 var app = express();
 
+// Set port
+var server = http.createServer(app);
+
+// Routes
+var home = require('./controller/home');
+
+
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', [
+        path.join(__dirname, 'views'),
+        path.join(__dirname, 'controller/home/views')
+    ]);
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -22,8 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', home);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,5 +65,37 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// Start server
+server.listen(port);
+server.on('error',function(error) {
+    if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-module.exports = app;
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+});
+
+server.on('listening', function() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+
+    console.log('Listening on ' + bind);
+});
