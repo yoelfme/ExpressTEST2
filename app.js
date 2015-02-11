@@ -7,19 +7,18 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var port = (process.env.PORT || 3000);
 var app = express();
+var models = require('./models');
 
 // Set port
 var server = http.createServer(app);
 
 // Routes
-var home = require('./controller/home');
-
-
+var home = require('./controllers/home');
 
 // view engine setup
 app.set('views', [
         path.join(__dirname, 'views'),
-        path.join(__dirname, 'controller/home/views')
+        path.join(__dirname, 'controllers/home/views')
     ]);
 app.set('view engine', 'jade');
 
