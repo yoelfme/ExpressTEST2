@@ -14,6 +14,7 @@ var server = http.createServer(app);
 
 // Routes
 var home = require('./controllers/home');
+var users = require('./controllers/users');
 
 // view engine setup
 app.set('views', [
@@ -31,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', home);
-
+app.use('/user', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
