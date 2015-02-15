@@ -3,13 +3,13 @@ extends ../../../views/layout
 block content
 	h1 Editar Usuario
 
-	form(method="POST",action="/user/" + _id)
+	form(method='POST',action='/user/' + _id)
 		p Nombre
-			input(type="text",name="name", value=name)
+			input(type='text',name='name', value=name)
 		p Hombre
-			input(type="checkbox",name="isMale",checked=isMale)
+			input(type='checkbox',name='isMale',checked=isMale)
 
-		input(type="hidden",name="_method",value="put")
+		input(type='hidden',name='_method',value='put')
 
 		p
-			button(type="submit") Enviar
+			button(type='submit') Enviar
