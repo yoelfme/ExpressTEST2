@@ -1,0 +1,15 @@
+extends ../../../views/layout
+
+block content
+	h1 Usuarios
+
+	ol
+		each item, i in data
+			li
+				span #{item.name} - 
+				a(href="/user/edit/" + item.id) editar	
+				| - 
+				a(href="/user/delete/" + item.id) eliminar
+
+
+	a(href="user/new") Crear
