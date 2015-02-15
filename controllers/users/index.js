@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-app.get('/new', function(req, res, next) {
+router.get('/new', function(req, res, next) {
 	res.render('new_user');
 });
 
-app.post('/',function(req, res, next) {
+router.post('/',function(req, res, next) {
 	var body = req.body;
 
 	var newUser = new db.User({
@@ -20,3 +20,5 @@ app.post('/',function(req, res, next) {
 		res.redirect('/');
 	});
 })
+
+module.exports = router;
